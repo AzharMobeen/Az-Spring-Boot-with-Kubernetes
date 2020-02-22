@@ -1,6 +1,5 @@
 # Az-Spring-Boot-with-Kubernetes
-
-* In this repository I'll use Spring-Boot microservice with kubernates, Docker and deploy on google cloud.
+In this repository I'll use Spring-Boot microservice with kubernates, Docker and deploy on google cloud.
 * We can achieve this step by step.
 #### About Kubernetes (K8S):
 * It's a tool for deploy application, manage containers, self healing and server side load balancing by creating multiple instances.
@@ -48,6 +47,15 @@
 * We need this commande for many purpose like If you want to deploy application, create multiple instances, deploy new version for application.
 * lets try kubectl version (It'll show some details)
 ##### Commands:
+* For top node: (It will nodes with respect to CPU usage and memory utilization)
+
+		kubectl top node
+* For top Pods:
+		
+		kubectl top pods
+* For Pods:
+		
+		kubectl get pods
 * For Deployment:
 
 		kubectl create deployment application-name --image=az-docker/Az-Spring-Rest-Api:0.0.1.RELEASE
@@ -60,19 +68,22 @@
 * For Events:
 
 		kubectl get events
+		OR
+		kubectl get ev
 * Back end kubernates doning many things
-* For Pods:
-
-		kubectl get pods
 * For Replicaset:
 
 		kubectl get replicaset
+		OR
+		kubectl get rs
 * For Deployment show:
 
 		kubectl get deployment
 * For Service:
 
 		kubectl get service
+		OR
+		kubectl get svc
 ##### About Pods:
 * Most important concept in kubernates.
 * Smallest deployable unit in kubernates.
@@ -159,6 +170,10 @@
 	
 		gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project leafy-bulwark-266007
 
+#### Cluster Info:
+* It will show runing services on specific urls
+
+		kubectl cluster-info		
 ##### Maintain Record for deployment (Change-cause):
 ** When we use --record with deployment it will save as record.
 
