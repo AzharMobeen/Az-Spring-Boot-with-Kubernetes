@@ -10,41 +10,41 @@
 #### Commands:
 ** Run Docker Image:
 
-	docker run -p imageDefined-Port:exposing-port docker-hub-image-full-path:version
+		docker run -p imageDefined-Port:exposing-port docker-hub-image-full-path:version
 ** Push Docker Image:
 	
-	docker push dockerID/nameOfImage:version
+		docker push dockerID/nameOfImage:version
 ** Local Images:
 
-	docker images
+		docker images
 * Images are noting just a file that have complete information of application,
 * When we run docker image it will automatically create container
 
 ** List of Containers:
 
-	docker container ls
+		docker container ls
 * Containers is running version of docker image.
 ** Start Container:
 
-	docker container start containerID/Names
+		docker container start containerID/Names
 ** Stop Container:
 
-	docker container stop containerID/Names
+		docker container stop containerID/Names
 ** Logs of Container:
 	
-	docker container log containerID/Names
+		docker container log containerID/Names
 ** Remove Container:
 	
-	docker container rm containerID/Names
+		docker container rm containerID/Names
 ** Romve all the stop containers
 	
-	docker container prune
+		docker container prune
 ** Image history:
 
-	docker image history dockerID/nameOfImage:version
+		docker image history dockerID/nameOfImage:version
 ** Remove Image:
 
-	docker image remove imageID
+		docker image remove imageID
 * Image will not remove if it is still part of start/stop container, need to remove that container then remove image.
 #### Helping video
 * Watch this tutorial for Docker [https://www.youtube.com/watch?v=Rt5G5Gj7RP0&feature=youtu.be](https://www.youtube.com/watch?v=Rt5G5Gj7RP0&feature=youtu.be)
@@ -52,35 +52,35 @@
 #### Build Docker Image:
 * Use this commande:
 	
-	docker build -t image-name-that-define-in-Dockerfil .
+		docker build -t image-name-that-define-in-Dockerfil .
 * . means root-directory where Dockerfile present
 #### Run Docker Image:
 
-	docker run -p 9090:8080 image-name
+		docker run -p 9090:8080 image-name
 * 9090 will be the container exposed port for clients.
 * 8080 is the port image exposed port.
 
 #### Push Image to DockerHub:
 * For push image we need add tag to image.
 	
-	docker tag image-name dockerID/image-name:0.0.1
+		docker tag image-name dockerID/image-name:0.0.1
 * Now confirm this:
 	
-	docker image ls
+		docker image ls
 * Now Push image:
 	
-	docker push dockerID/image-name:0.0.1
+		docker push dockerID/image-name:0.0.1
 * It'll take some time then we can cofirm from docker-hub
 
 #### Pull Docker Image:
 
-	docker pull dockerID/image-name:0.0.1
+		docker pull dockerID/image-name:0.0.1
 * Now we can run this image by simple docker run command.
 
 #### Remove Docker Image:
 * For removing docker images needs to stop and remove container which referencing that image.
 
-			docker image rm image-name:tag
+		docker image rm image-name:tag
 * Sometimes we have to forcefuly remove image
 		
 		docker image rm -f image-name
