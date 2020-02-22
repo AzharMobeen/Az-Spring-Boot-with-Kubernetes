@@ -30,7 +30,7 @@ In this repository I'll use Spring-Boot microservice with kubernates, Docker and
 * So what is *cluster* is the combination of nodes and master nodes.
 * The Node those do work called worker nodes.
 * The Node those are managing worker nodes called master node.
-###### Creating Cluster
+##### Creating Cluster
 * Go to console and select my first project.
 * Now we need to enable Kubernetes Engine.
 * Type Kubernetes Engine in search bar and click on it.
@@ -166,7 +166,7 @@ In this repository I'll use Spring-Boot microservice with kubernates, Docker and
 
 #### How to use:
 * After both installation just run google cloud
-* Now got to console and click on connect for cluster popup will apear and copy highlighted command, in my case bellow is the command:
+* Now got to console, then go to kubernates engine and click on connect for cluster popup will apear and copy highlighted command, in my case bellow is the command:
 	
 		gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project leafy-bulwark-266007
 
@@ -200,15 +200,57 @@ In this repository I'll use Spring-Boot microservice with kubernates, Docker and
 		kubectl logs podID -f
 ##### Get Deployment Detail:
 
-* Few Detail:
-
+* Get Deployment details:
+		
 		kubectl get deployment application-name
-* More Details:
+* Above command will give deployment details.
+* Get more Deployment details:
+	
+		kubectl get deployment application-name -o s
 
-		kubectl get deployment application-name -o wide
-* More and More Details:
-
-		kubectl get deployment application-name -o yaml
 * For Deletion:
 
 		kubectl delete all -l app=hello-world-rest-api
+
+##### YAML configurations & Apply Changes:
+* Get Deployment details in YAML file:
+					
+		kubectl get deployment application-name -o yaml
+* Save deployment details in *.yaml file:
+
+		kubectl get deployment application-name -o yaml > deployment.yaml
+* When we need to deploy some applicaiton we need to execute two commands, 1st one create deployment and 2nd one to expose deployment.
+* In above created file `deployment.yaml` is equals to create deployment.
+* Now we need to create an other file which will be equals to expose command.
+		
+		kubectl get service application-name -o yaml > service.yaml
+* Lets change something in deployment.yaml file and apply effect that change to our application.
+* I have change repicas no from 3 to 5 and save that file now run bellow command:
+
+		kubectl apply -f deployment.yaml
+* Now check pods, As we know pods equals to no of replicas.
+	
+		kubectl get pods
+* Lets merge deployment.yaml and service.yaml to make one sigle file deployment.yaml.
+* Cut all the lines from `service.yaml` and past at the end in `deployment.yaml` file.
+* Now remove extra things from deployment.yaml file that we shouldn't care:
+** From main metadata:
+	 `annotations`, `creationTimestamp`, `generation`, `resourceVersion`, `selfLink`, `uid`
+** From main spec:
+	 `progressDeadlineSeconds`, `revisionHistoryLimit`, `template:creationTimestamp`, `template:spec:containers:resources`, `template:spec:containers:terminationMessagePath`, `template:spec:containers:terminationMessagePolicy`, `template:spec:dnsPolicy`, `template:spec:schedulerName`, `template:spec:securityContext`
+** Delete main status because it's keep changing everytime.
+* Now service.yaml file lines need to reduce.
+** From main metadata:
+	`creationTimestamp`, `resourceVersion`, `selfLink`, `uid`
+** From main spec:
+	`clusterIP`, `clusterIP`, `externalTrafficPolicy`
+** Delete main status because it's keep changing everytime.
+* Delete pods and service by:
+	
+		kubectl delete all -l app=podID-comman-name
+* Get all Status: (It'll show inprogress as well)
+	
+		kubectl get all
+		
+###### What is template in YAML file:
+* It's the configuration for pod

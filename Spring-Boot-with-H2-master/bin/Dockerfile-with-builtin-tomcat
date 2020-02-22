@@ -1,4 +1,0 @@
-FROM openjdk:8
-EXPOSE 8081
-ADD target/spring-boot-with-h2.jar spring-boot-with-h2-docker.jar
-ENTRYPOINT ["java","-jar","spring-boot-with-h2-docker.jar" ]
