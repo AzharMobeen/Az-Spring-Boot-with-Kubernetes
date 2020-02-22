@@ -50,74 +50,74 @@
 ##### Commands:
 * For Deployment:
 
-	kubectl create deployment application-name --image=az-docker/Az-Spring-Rest-Api:0.0.1.RELEASE
+		kubectl create deployment application-name --image=az-docker/Az-Spring-Rest-Api:0.0.1.RELEASE
 * In above commande --image = docker image that is available on hub.docker.com/az-docker/Az-Spring-Rest-Api with different versions
 * Above command will create deployment now we need to *expose* this deployment:
 
-	kubectl expose deployment application-name --type=LoadBalancer --port=8080
+		kubectl expose deployment application-name --type=LoadBalancer --port=8080
 * It will take time to complete this command.
 * Now goto services & ingress tab, if application status is ok then click on endpoint.
 * For Events:
 
-	kubectl get events
+		kubectl get events
 * Back end kubernates doning many things
 * For Pods:
 
-	kubectl get pods
+		kubectl get pods
 * For Replicaset:
 
-	kubectl get replicaset
+		kubectl get replicaset
 * For Deployment show:
 
-	kubectl get deployment
+		kubectl get deployment
 * For Service:
 
-	kubectl get service
+		kubectl get service
 ##### About Pods:
 * Most important concept in kubernates.
 * Smallest deployable unit in kubernates.
 * Containers live inside pods.
 * Run :
 
-	kubectl get pods -o wide
+		kubectl get pods -o wide
 * We can see every pod have unique IP and we can know that how many containers runing in this pod.
 * With in the same pod containers can share resource.
 * Run :
 
-	kubectl explain pods
+		kubectl explain pods
 * Every node can have many pods and every pod can have many containers.
 ##### Replicaset:
 * Command:
 
-	kubectl get replicaset / kubectl get rs
+		kubectl get replicaset / kubectl get rs
 * Execute this commande to delete pod:
 
-	kubectl delete pods unique-id-for-application
+		kubectl delete pods unique-id-for-application
 * It'll be deleted but when we get pods detial again, then an other application instance will be up automatically by *Replicaset.
 * Scale Deployment with multiple applicaiton instances:
 
-	kubectl scale deployment application-name --replicas=3
+		kubectl scale deployment application-name --replicas=3
 * In above commande it will create three instances for the application and when we try to delete one of them then kubernates automatically up and run an other instance of the application because of *Replicaset.
 * We can check desired and current replicaset by:
 
-	kubectl get replicaset OR rs
+		kubectl get replicaset OR rs
 * Check background commands order by timestamp:
 
-	kubectl get events --sort-by=.metadata.creationTimestamp
+		kubectl get events --sort-by=.metadata.creationTimestamp
 * Deployment new version with zero downtime (Update Docker Image):
 ** First we'll check old applicaiton details:
 
-	kubectl get rs -o wide
+		kubectl get rs -o wide
 ** Above commande will tell us containers name and image detail.
 ** Now run bellow command:
 
-	kubectl set image deployment application-name containers-name=same-image-path-from-docker-hub:version
+		kubectl set image deployment application-name containers-name=same-image-path-from-docker-hub:version
 	
 * When we want to deploy new version of application kubernates deploy new version in new pod then kubernates kill one pod of older version then so on.
 * Service:
 * Run 	
 	
-	kubectl get pods -o wide
+		kubectl get pods -o wide
 * It will show detail of every instance of application with Id and IP. Every instance is runing in different IP but for enduser/consumer needs only one IP to call this application.
 * Kubernetes handle internaly with LoadBalancer and called different instances all this done by *Kubernetes Service*
 * When we expose deployment then service will be created.
@@ -133,7 +133,7 @@
 ** Node Agent manages aplication stats if one pod is down then it tell master node and then master node create an other pod/instance.
 ##### Check Status of Node Component:
 	
-	kubectl get componentstatuses
+		kubectl get componentstatuses
 ##### Google Cloud Regions and Zones:
 * When we create cluster kubernates ask us for region and zone.
 #### Docker:
@@ -157,43 +157,43 @@
 * After both installation just run google cloud
 * Now got to console and click on connect for cluster popup will apear and copy highlighted command, in my case bellow is the command:
 	
-	gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project leafy-bulwark-266007
+		gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project leafy-bulwark-266007
 
 ##### Maintain Record for deployment (Change-cause):
 ** When we use --record with deployment it will save as record.
 
-	kubectl set image deployment application-name container-name=dockerID/application-name:version --record
+		kubectl set image deployment application-name container-name=dockerID/application-name:version --record
 ** Show application version records (Application deployment history):
 
-	kubectl rollout history deployment application-name
+		kubectl rollout history deployment application-name
 ** Check status of latest deployment:
 
-	kubectl rollout status deployment application-name
+		kubectl rollout status deployment application-name
 ##### Undo Deployment:
 
-	kubectl rollout undo deployment application-name --to-revision=3
+		kubectl rollout undo deployment application-name --to-revision=3
 ##### Logs:
 * With podID we can get logs of application
 * First get podID
 
-	kubectl get pods
+		kubectl get pods
 * Now get log:
 
-	kubectl logs podID
+		kubectl logs podID
 * If you want to follow the logs:
 
-	kubectl logs podID -f
+		kubectl logs podID -f
 ##### Get Deployment Detail:
 
 * Few Detail:
 
-	kubectl get deployment application-name
+		kubectl get deployment application-name
 * More Details:
 
-	kubectl get deployment application-name -o wide
+		kubectl get deployment application-name -o wide
 * More and More Details:
 
-	kubectl get deployment application-name -o yaml
+		kubectl get deployment application-name -o yaml
 * For Deletion:
 
-	kubectl delete all -l app=hello-world-rest-api
+		kubectl delete all -l app=hello-world-rest-api
